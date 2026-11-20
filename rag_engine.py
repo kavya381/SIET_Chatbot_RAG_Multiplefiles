@@ -3,10 +3,11 @@ import numpy as np
 from groq import Groq
 from pypdf import PdfReader
 from sentence_transformers import SentenceTransformer
+from pathlib import path
 
 def load_pdf (pdf_path):
   reader = PdfReader(str(pdf_path))
-  mypages = [i.extract_text() or "" for i in reader.pages]
+  mypages = [ i.extract_text() or "" for i in reader.pages]
   full_text = "\n".join(mypages).strip()
   if not full_text:
       raise ValueError("No readable Text Found")
@@ -36,10 +37,12 @@ def build_vectors (chunks,model_name="all-MiniLM-L6-v2"):
   return index,embed_model,chunks
   
 #call loadpdf,chuk,embedding
-def load_base (pdf_path = "01_College_Information.pdf"):
-  full_text = load_pdf(pdf_path)
-  chunks = create_chunks(full_text)
-  index, embed_model, chunks = build_vectors(chunks)
+def load_base(pdf_path = "01_College_Information.pdf"):
+    chunks = []
+    for pdf in Path(pdf_path).glob("*.pdf"):
+        full_text = load_pdf(pdf)
+        chunks.extend (create_chunks(full_text))
+  index, embed_model = build_vectors(chunks)
   return index, embed_model, chunks
 
 #retrive
