@@ -4,8 +4,7 @@ st.set_page_config(page_title="SIET_Chatbot", layout="centered")
 st.title("SHRIDEVI INSTITUTE OF ENGINEERING AND TECHNOLOGY")
 st.caption("Ask anything about the College Information, Courses,FAQs,Rules and regulation,Placements...")
 st.caption("RAG Pipeline with multiple files")
-st.caption("Created by Chandana Lokesh")
-
+st.caption("Created by KAVYA MP")
 mykey=st.secrets["GROQ_API_KEY"]
 
 @st.cache_resource
