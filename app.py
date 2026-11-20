@@ -4,10 +4,11 @@ st.title("SIET_Chatbot")
 
 st.caption("Ask anything about college information ,courses, Placements, FAQs, Rules and Regulations")
 st.caption("RAG Pipeline with Multiple files")
+mykey = st.secrets["GROQ_API_KEY"]
 
 @st.cache_resource
 def initiate_rag():
-  return load_base("college_docs")
+  return load_base("01_College_Information.pdf")
   
 index, embed_model, chunks = initiate_rag()
 
